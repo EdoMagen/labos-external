@@ -1,0 +1,32 @@
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber';
+@import "../styles/mixins";
+@import "../styles/colors";
+
+// @include candy-carousel-theme($theme);
+
+$card-padding: 60px;
+
+.login-form-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  background-color: $background;
+}
+
+.center-card {
+  position: relative;
+  width: 230px;
+  padding: $card-padding $card-padding 2*$card-padding $card-padding;
+  margin: auto;
+  md-icon {
+      // @extend .text-primary-color
+    }
+}
+
+
+.submit-button{
+  position: absolute;
+  right: $card-padding;
+  bottom: $card-padding;
+}
