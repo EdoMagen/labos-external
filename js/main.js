@@ -1,9 +1,4 @@
-var tests =  [];
-var baseUrl = 'http://stdemo11:85/s/order';
-//var baseUrl = 'http://stdemo11:85/s/facility/';
-var apiToken = _getParameterByName('apiToken');
-// alert('apiToken: ' + apiToken);
-
+/*
 var mockOrderPayload = {
     "stat": true,
     "creationDate": {
@@ -102,6 +97,13 @@ var mockOrderPayload = {
         }
     ]
 }
+*/
+
+// Variables / members
+// -----------------------
+var baseUrl = 'http://saaslims1:83/s/';
+var apiToken = _getParameterByName('apiToken');
+
 var orderPayload = {
     "stat": true,
     "facility": {
@@ -138,10 +140,15 @@ var orderPayload = {
     ]
 }
 
-var currentPatient;
-var currentPhysician;
-var currentFacility;
+var patientList;
+var physicianList;
+var facilityList;
+var testsList;
+var requestsList = [];
 
+// Helper function to extract apiToken from the query string
+// We use apiToken in all of our requests for authentication
+// apiToken is received from labOS.
 function _getParameterByName(name, url) {
     if (!url) {
         url = window.location.href;
@@ -154,49 +161,154 @@ function _getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$(document).ready(function() {
-    $('select').material_select();
-});
-
-function onButtonClick(event) {
-    // Get from input + encodeUriComponent
-    event.preventDefault();
-    buildFormData();
-    sendOrder();
-}
-
+// Methods to get the items we need to populate our form
 function getPatientsList() {
     // gets physician list
-}
-
-function getPhysiciansList() {
-    // gets physician list
-}
-
-function getFacilitiesList() {
-    // gets facilities list
-}
-
-function buildFormData() {
-    // Take patient, facility,
-    // physician and tests and send to BE
-    orderPayload.patient = currentPatient;
-    orderPayload.facility = currentFacility;
-    orderPayload.physician = currentPhysician;
-
-}
-function sendOrder(facility, physician, patient) {
     $.ajax({
-        url: baseUrl,
-        method: 'POST',
+        url: baseUrl + 'patient',
+        method: 'GET',
         headers: {
             'X-Laas-Session-Token': apiToken
         },
         success: function(data) {
-            order = data.order[0];
-            $("#content-placeholder").html(template(order));
+            patientList = data.patient;
+            patientList.forEach(function(patient){
+                // console.log(patient);
+                if(patient.fullName) {
+                    document.getElementById('patient-select').innerHTML += '<option value="'+patient.code+'">'+patient.fullName+'</option>';
+                }
+            });
+            $('select').material_select();
+            // console.log('patientList: ', patientList);
         },
-        error: function() {
+        error: function(e) {
+            console.error('API error: ', e.responseJSON.errorMessage);
         }
     });
 }
+
+function getPhysiciansList() {
+    // gets physician list
+    $.ajax({
+        url: baseUrl + 'physician',
+        method: 'GET',
+        headers: {
+            'X-Laas-Session-Token': apiToken
+        },
+        success: function(data) {
+            physicianList = data.physician;
+            physicianList.forEach(function(physician){
+                // console.log(physician);
+                if(physician.name) {
+                    document.getElementById('physician-select').innerHTML += '<option value="'+physician.code+'">'+physician.name+'</option>';
+                }
+            });
+            $('select').material_select();
+            // console.log('physicianList: ', physicianList);
+        },
+        error: function(e) {
+            console.error('API error: ', e.responseJSON.errorMessage);
+        }
+    });
+}
+
+function getFacilitiesList() {
+    // gets facilities list
+    $.ajax({
+        url: baseUrl + 'facility',
+        method: 'GET',
+        headers: {
+            'X-Laas-Session-Token': apiToken
+        },
+        success: function(data) {
+            facilityList = data.facility;
+            facilityList.forEach(function(facility){
+                // console.log(facility);
+                if(facility.name) {
+                    document.getElementById('facility-select').innerHTML += '<option value="'+facility.code+'">'+facility.name+'</option>';
+                }
+            });
+            $('select').material_select();
+            // console.log('facilityList: ', facilityList);
+        },
+        error: function(e) {
+            console.error('API error: ', e.responseJSON.errorMessage);
+        }
+    });
+}
+
+function getTestsList() {
+    // gets physician list
+    $.ajax({
+        url: baseUrl + 'test',
+        method: 'GET',
+        headers: {
+            'X-Laas-Session-Token': apiToken
+        },
+        success: function(data) {
+            testsList = data.test;
+            testsList.forEach(function(test){
+                // console.log(test);
+                if(test.name != "") {
+                    document.getElementById('tests-container').innerHTML += '<div class="col s6"><input type="checkbox" class="filled-in" id="'+test.code+'"/><label for="'+test.code+'">'+test.name+'</label></div>';
+                }
+            });
+            // console.log('testsList: ', testsList);
+        },
+        error: function(e) {
+            console.error('API error: ', e.responseJSON.errorMessage);
+        }
+    });
+}
+
+
+// Methods to send our order to be saved by BE
+function onButtonClick(event) {
+    event.preventDefault();
+    buildPayload();
+    sendOrder();
+}
+
+function buildPayload() {
+    // Build patient, facility, physician and tests objects
+    // and prepare them for submission
+    var tests = document.querySelectorAll('#tests-container input[type="checkbox"]:checked').forEach(function(test){
+            console.log(test.id);
+            var newTest = {};
+            newTest.code = +test.id;
+            requestsList.push(newTest);
+    });
+
+    orderPayload.patient.code = +document.querySelector('#patient-select').value;
+    orderPayload.facility.code = +document.querySelector('#facility-select').value;
+    orderPayload.physician.code = +document.querySelector('#physician-select').value;
+    orderPayload.requests = requestsList;
+}
+
+function sendOrder() {
+    $.ajax({
+        url: baseUrl + 'order',
+        method: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        data: JSON.stringify(orderPayload),
+        headers: {
+            'X-Laas-Session-Token': apiToken
+        },
+        success: function(data) {
+            console.log('ORDER SAVED!', data)
+        },
+        error: function(e) {
+            console.error('API error: ', e.responseJSON.errorMessage);
+        }
+    });
+}
+
+// Initialize
+$(document).ready(function() {
+    getPatientsList();
+    getPhysiciansList();
+    getFacilitiesList();
+    getTestsList();
+    $('select').material_select();
+});
