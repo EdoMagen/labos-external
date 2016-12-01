@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f2026ed-80a7-415f-8d07-4e2d67eea796" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/main.css" afterPath="$PROJECT_DIR$/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/materialize.css" afterPath="$PROJECT_DIR$/css/materialize.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/main.js" afterPath="$PROJECT_DIR$/js/main.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/order.html" afterPath="$PROJECT_DIR$/order.html" />
     </list>
     <ignored path="labos-external2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +38,8 @@
       <file leaf-file-name="main.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="250" column="36" selection-start-line="250" selection-start-column="36" selection-end-line="250" selection-end-column="36" />
+            <state relative-caret-position="372">
+              <caret line="266" column="27" selection-start-line="266" selection-start-column="27" selection-end-line="266" selection-end-column="27" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#2928#3733#0" expanded="false" />
@@ -52,7 +47,6 @@
                 <element signature="n#!!block;n#getPatientsList#0" expanded="false" />
                 <element signature="n#!!block;n#getPhysiciansList#0" expanded="false" />
                 <element signature="n#!!block;n#getFacilitiesList#0" expanded="false" />
-                <element signature="n#!!block;n#sendOrder#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -246,12 +240,12 @@
       <option name="presentableId" value="Default" />
       <updated>1480598516230</updated>
       <workItem from="1480598517517" duration="5269000" />
-      <workItem from="1480604695374" duration="8661000" />
+      <workItem from="1480604695374" duration="9722000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13930000" />
+    <option name="totallyTimeSpent" value="14991000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
@@ -320,7 +314,6 @@
             <element signature="n#!!block;n#getPatientsList#0" expanded="false" />
             <element signature="n#!!block;n#getPhysiciansList#0" expanded="false" />
             <element signature="n#!!block;n#getFacilitiesList#0" expanded="false" />
-            <element signature="n#!!block;n#sendOrder#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -375,8 +368,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="250" column="36" selection-start-line="250" selection-start-column="36" selection-end-line="250" selection-end-column="36" />
+        <state relative-caret-position="372">
+          <caret line="266" column="27" selection-start-line="266" selection-start-column="27" selection-end-line="266" selection-end-column="27" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#2928#3733#0" expanded="false" />
@@ -384,7 +377,6 @@
             <element signature="n#!!block;n#getPatientsList#0" expanded="false" />
             <element signature="n#!!block;n#getPhysiciansList#0" expanded="false" />
             <element signature="n#!!block;n#getFacilitiesList#0" expanded="false" />
-            <element signature="n#!!block;n#sendOrder#0" expanded="false" />
           </folding>
         </state>
       </provider>

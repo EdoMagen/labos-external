@@ -272,11 +272,12 @@ function onButtonClick(event) {
 function buildPayload() {
     // Build patient, facility, physician and tests objects
     // and prepare them for submission
-    var tests = document.querySelectorAll('#tests-container input[type="checkbox"]:checked').forEach(function(test){
-            console.log(test.id);
-            var newTest = {};
-            newTest.code = +test.id;
-            requestsList.push(newTest);
+    requestsList = [];
+    document.querySelectorAll('#tests-container input[type="checkbox"]:checked').forEach(function(test){
+        console.log(test.id);
+        var testToAdd = {};
+        testToAdd.code = +test.id;
+        requestsList.push(testToAdd);
     });
 
     orderPayload.patient.code = +document.querySelector('#patient-select').value;
@@ -296,7 +297,7 @@ function sendOrder() {
             'X-Laas-Session-Token': apiToken
         },
         success: function(data) {
-            console.log('ORDER SAVED!', data)
+            console.log('ORDER SAVED!\n', data)
         },
         error: function(e) {
             console.error('API error: ', e.responseJSON.errorMessage);
