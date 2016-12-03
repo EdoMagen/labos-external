@@ -98,6 +98,10 @@ textarea {
 html {
   font-size: 14px;
 }
+.max-550 {
+  max-width: 550px;
+  border: 1px solid #ececec;
+}
 .select-wrapper input.select-dropdown {
     border-bottom: 1px solid rgba(0,0,0,0.12);
 }
@@ -156,7 +160,7 @@ li.selected span{
 }
 .new-order {
   background-color: #f2f2f2;
-  border: 1px solid #e4e4e4;
+  border-bottom: 1px solid #e4e4e4;
   padding: 0 0 0 20px;
 }
 .new-order h1 {
