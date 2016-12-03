@@ -130,6 +130,16 @@ li.selected span{
     display: inline-block;
     font-size: 16px;
 }
+[type="checkbox"] + label {
+  zoom: .8;
+  font-size: 18px;
+  padding-left: 32px;
+  font-weight: 300;
+  color: #333;
+}
+[type="checkbox"].filled-in:not(:checked) + label:after {
+  border: 3px solid #5a5a5a;
+}
 [type="checkbox"].filled-in:checked + label:after {
     top: 0;
     width: 20px;
