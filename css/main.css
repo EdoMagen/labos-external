@@ -98,8 +98,8 @@ textarea {
 html {
   font-size: 14px;
 }
-.max-550 {
-  max-width: 550px;
+.max-680 {
+  max-width: 680px;
   border: 1px solid #ececec;
 }
 .select-wrapper input.select-dropdown {
@@ -112,8 +112,8 @@ html {
     font-size: 14px;
     color: rgba(33,33,33,0.87);
     display: block;
-    line-height: 20px;
-    padding: 10px 15px;
+    line-height: 42px;
+    padding: 0 15px;
 }
 .dropdown-content li:hover, .dropdown-content li.active, .dropdown-content li.selected {
     background-color: #F9F9F9;
