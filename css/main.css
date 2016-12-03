@@ -153,7 +153,7 @@ li.selected span{
     color: #FFFFFF;
     line-height: 34px;
     box-shadow: none;
-    ont-weight: 300;
+    font-weight: 300;
 }
 .btn:hover, .btn-large:hover, .btn-flat:hover {
     box-shadow: none;
