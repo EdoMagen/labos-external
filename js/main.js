@@ -161,6 +161,7 @@ function _getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+
 // Methods to get the items we need to populate our form
 function getPatientsList() {
     // gets physician list
@@ -198,13 +199,11 @@ function getPhysiciansList() {
         success: function(data) {
             physicianList = data.physician;
             physicianList.forEach(function(physician){
-                // console.log(physician);
                 if(physician.name) {
                     document.getElementById('physician-select').innerHTML += '<option value="'+physician.code+'">'+physician.name+'</option>';
                 }
             });
             $('select').material_select();
-            // console.log('physicianList: ', physicianList);
         },
         error: function(e) {
             console.error('API error: ', e.responseJSON.errorMessage);
@@ -223,13 +222,11 @@ function getFacilitiesList() {
         success: function(data) {
             facilityList = data.facility;
             facilityList.forEach(function(facility){
-                // console.log(facility);
                 if(facility.name) {
                     document.getElementById('facility-select').innerHTML += '<option value="'+facility.code+'">'+facility.name+'</option>';
                 }
             });
             $('select').material_select();
-            // console.log('facilityList: ', facilityList);
         },
         error: function(e) {
             console.error('API error: ', e.responseJSON.errorMessage);
@@ -248,12 +245,10 @@ function getTestsList() {
         success: function(data) {
             testsList = data.test;
             testsList.forEach(function(test){
-                // console.log(test);
                 if(test.name != "") {
-                    document.getElementById('tests-container').innerHTML += '<div class="col s6"><input type="checkbox" class="filled-in" id="'+test.code+'"/><label for="'+test.code+'">'+test.name+'</label></div>';
+                    document.getElementById('tests-container').innerHTML += '<div class="col s6"><input type="checkbox" class="filled-in" id="'+test.code+'"/><label for="'+test.code+'">'+test.longName+'</label></div>';
                 }
             });
-            // console.log('testsList: ', testsList);
         },
         error: function(e) {
             console.error('API error: ', e.responseJSON.errorMessage);
@@ -274,9 +269,8 @@ function buildPayload() {
     // and prepare them for submission
     requestsList = [];
     document.querySelectorAll('#tests-container input[type="checkbox"]:checked').forEach(function(test){
-        console.log(test.id);
-        var testToAdd = {};
-        testToAdd.code = +test.id;
+        var testToAdd = {test: {}};
+        testToAdd.test.code = +test.id;
         requestsList.push(testToAdd);
     });
 
@@ -297,7 +291,9 @@ function sendOrder() {
             'X-Laas-Session-Token': apiToken
         },
         success: function(data) {
-            console.log('ORDER SAVED!\n', data)
+            console.info('ORDER SAVED!\n', data)
+            $('#order-created-span').text(data.order[0].orderName);
+            $('.modal').modal('open');
         },
         error: function(e) {
             console.error('API error: ', e.responseJSON.errorMessage);
@@ -311,5 +307,6 @@ $(document).ready(function() {
     getPhysiciansList();
     getFacilitiesList();
     getTestsList();
+    $('.modal').modal();
     $('select').material_select();
 });
